@@ -44,6 +44,22 @@ analysis_project_agent = Agent(
    show_tool_calls=True
 )
 
+def google_search():
+    return '我是網路搜尋專家'
+
+search_agent = Agent(
+    model=OpenAIChat(id="gpt-4"),
+    tools=[GoogleSearch()],
+    description="You are a news agent that helps users find the latest news.",
+    instructions=[
+        "Given a topic by the user, respond with 4 latest news items about that topic.",
+        "Search for 10 news items and select the top 4 unique items.",
+        "Search in English and in French.",
+    ],
+    show_tool_calls=True,
+    debug_mode=True,
+)
+
 # Create agent team
 agent_team = Agent(
     model=OpenAIChat(
@@ -52,7 +68,7 @@ agent_team = Agent(
         timeout = 30
     ),
    name="Agent Team",
-   team=[self_intro_agent, analysis_project_agent],
+   team=[self_intro_agent, analysis_project_agent,search_agent],
    add_history_to_messages=True,
    num_history_responses=3,
    show_tool_calls=False,
