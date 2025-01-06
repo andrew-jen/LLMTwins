@@ -1,1 +1,4 @@
-andrew
+members:
+1.andrew
+2.sam
+3.claire
