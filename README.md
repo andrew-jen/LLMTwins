@@ -17,3 +17,6 @@ pip3 install -r requirements.txt
 ```bash=
 uvicorn server:app --host 0.0.0.0 --port 8000 --reload
 ```
+
+新增google_search功能來查找新聞
+並透過postman可以於prompt網頁以post方法帶入json(role & message)，進而與ai互動
