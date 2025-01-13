@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from phi.agent import Agent
 from phi.model.openai import OpenAIChat
 from models import  prompt
+from phi.tools.googlesearch import GoogleSearch
 
 # Load environment variables from .env file
 load_dotenv()
