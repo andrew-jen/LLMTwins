@@ -15,6 +15,12 @@ from fastapi.security import OAuth2PasswordBearer
 
 # 定义 OAuth2 密码流
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
+OpenAIChat(
+    id="gpt-4o",
+    temperature=1,
+    timeout=30,
+    api_key="請使用您的API Key"  # 这里传入 API Key
+)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,6 +36,21 @@ fake_users_db = {
         "username": "testuser",
         "password": "testpassword",
         "agent": ['self_intro_agent', 'search_agent']  # In a real application, passwords should be hashed
+    },
+    "sam": {
+        "username": "sam",
+        "password": "sampassword",
+        "agent": ['self_intro_agent']
+    },
+    "andrew": {
+        "username": "andrew",
+        "password": "andrewpassword",
+        "agent": ['search_agent']
+    },
+    "dino": {
+        "username": "dino",
+        "password": "dinopassword",
+        "agent": ['self_intro_agent']
     }
 }
 
@@ -59,6 +80,7 @@ app.add_middleware(
 )
 
 def verify_password(plain_password, stored_password):
+    print(plain_password,stored_password)
     return plain_password == stored_password
 
 def get_user(db, username: str):
@@ -67,6 +89,7 @@ def get_user(db, username: str):
         return UserInDB(**user)
 
 def authenticate_user(db, username: str, password: str):
+    print(username)
     user = get_user(db, username)
     if not user or not verify_password(password, user.password):
         return False
